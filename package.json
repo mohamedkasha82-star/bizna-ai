@@ -1,0 +1,15 @@
+{
+  "name": "bizna-ai",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Arabic-first decision intelligence and AI Copilot for Egyptian micro-businesses.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "node --check src/worker.js"
+  },
+  "devDependencies": {
+    "wrangler": "^4.36.0"
+  }
+}
+
