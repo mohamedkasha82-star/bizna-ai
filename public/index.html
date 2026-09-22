@@ -85,6 +85,47 @@
      .village-research-panel{margin-top:22px;padding-top:17px;border-top:1px solid #ffffff1a}.village-research-panel>h3{margin:0 0 10px;color:var(--gold);font-size:13px}.research-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.research-grid article{border:1px solid #ffffff18;background:#ffffff08;border-radius:14px;padding:11px 13px}.research-grid article.wide{grid-column:1/-1}.research-grid b{display:block;color:#ffe6a0;font:10px "Space Grotesk",sans-serif;margin-bottom:5px}.research-grid p,.research-grid li{margin:0;color:#b9cbd8;font-size:10px;line-height:1.8}.research-grid ul{padding:0 17px 0 0;margin:0}.research-grid a{color:#8eeaff;text-decoration:underline;text-underline-offset:3px}
       @media(max-width:680px){#nile-canvas{opacity:.9}.deep-backdrop,.modal-backdrop{background:#02071318}.deep-modal,.tribute-modal{right:10px;top:75px;bottom:10px;width:calc(100vw - 20px);padding:19px;border-radius:22px}.deep-media img{height:175px}.village-dossier{grid-template-columns:92px 1fr}.dossier-image{min-height:170px}.portrait-frame,.portrait-pending{height:155px!important}.glass{backdrop-filter:blur(16px) saturate(1.25);-webkit-backdrop-filter:blur(16px) saturate(1.25)}}
       @media(max-width:680px){.research-grid{grid-template-columns:1fr}.research-grid article.wide{grid-column:auto}}
+      /* Reference-inspired Nubia landing composition. Keep the archive data and controls, but let the first screen read as a landscape. */
+      :root{--reference-ink:#06131d;--reference-sea:#0b3240;--reference-teal:#16899a;--reference-sand:#f0b76b;--reference-cream:#fff5e4}
+      body{background:var(--reference-ink)}
+      .nav{background:linear-gradient(180deg,#06131de8,#06131d66);border-bottom-color:#f0b76b35}
+      .brand-mark{background:linear-gradient(145deg,#118ba0,#0a3f55);color:#d5f8f4;box-shadow:0 0 26px #1593a844}
+      .brand-copy strong{letter-spacing:.22em}.brand-copy span{color:#8fe2df}
+      .nav-links a:hover,.nav-links button:hover,.nav-copilot:hover{border-color:#f0b76b80;color:var(--reference-cream);background:#f0b76b16}
+      .nav-signal{color:#9be9df}.signal-dot{background:#9be9df;box-shadow:0 0 14px #42d6c5}
+      #nile-canvas{opacity:0!important;visibility:hidden!important}
+      .ambient{opacity:1;background:radial-gradient(ellipse at 67% 19%,#f0a65b8a 0%,#d96d4d55 13%,transparent 34%),linear-gradient(180deg,#182e3a 0%,#7e5349 34%,#173744 58%,#06151e 100%)}
+      .stars{opacity:.12;background-size:137px 137px;animation:none}
+      .hero{min-height:min(860px,100svh);height:min(860px,100svh);background:radial-gradient(circle at 67% 31%,#ffd586 0 2.1%,transparent 2.7%),linear-gradient(180deg,transparent 0 32%,#dc8153 33%,#684a49 45%,#102d38 57%,#06151e 100%);isolation:isolate}
+      .hero:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(154deg,transparent 0 35%,#102c33 35.5% 45%,transparent 45.5%),linear-gradient(205deg,transparent 0 39%,#1d3a3c 39.5% 49%,transparent 49.5%),linear-gradient(166deg,transparent 0 46%,#081d29 46.5% 58%,transparent 58.5%);opacity:.92;pointer-events:none}
+      .hero:after{content:"";position:absolute;inset:44% 0 0;z-index:2;background:linear-gradient(180deg,#c8785050 0%,#123d495e 17%,#061820e8 74%),repeating-linear-gradient(174deg,transparent 0 15px,#9ad9cf18 16px 17px,transparent 18px 38px);mix-blend-mode:screen;opacity:.72;pointer-events:none}
+      .hero .reveal,.river-stage.reveal{opacity:1;transform:none}
+      .hero-copy{left:clamp(24px,7vw,100px);top:clamp(180px,27vh,255px);width:min(560px,44vw);direction:ltr;text-align:left;text-shadow:0 12px 38px #000b;z-index:8}
+      .hero-copy:before{content:"NUBIA";display:block;color:var(--reference-cream);font:500 clamp(38px,5vw,70px)/1 "Space Grotesk",sans-serif;letter-spacing:.28em;margin-left:.15em}
+      .hero-copy:after{content:"The Living Memory";display:block;color:var(--reference-sand);font:500 clamp(16px,1.8vw,25px)/1.2 "Space Grotesk",sans-serif;letter-spacing:.12em;margin:12px 0 24px}
+      .hero-copy .eyebrow{display:none}.hero-copy h1{font-size:clamp(25px,3vw,42px);line-height:1.3;letter-spacing:-.03em;margin:0 0 14px;color:var(--reference-cream)}
+      .hero-copy h1 .gold-text{background:none;color:var(--reference-sand)}.hero-copy>p{max-width:450px;color:#f5e9dc;font-size:13px;line-height:1.95;margin:0 0 23px}
+      .hero-actions{justify-content:flex-start}.primary{background:linear-gradient(110deg,#f4c27b,#d9844f);box-shadow:0 14px 28px #c66f3b38;color:#1a1b1a}.secondary{border-color:#f0c98a70;background:#0619237d;color:var(--reference-cream)}
+      .hero-note{justify-content:flex-start;color:#d1ded8}.hero-note b{color:#f6d19b}.mini-line{background:#f0b76b}
+      #river-stage{z-index:4;background:transparent;transform:none}
+      #river-stage:before{background:radial-gradient(ellipse at 52% 64%,transparent 0 20%,#05141d45 64%,#020b12b8 100%);opacity:.76}
+      #river-stage:after{background:linear-gradient(90deg,transparent 0 45%,#03141d18 70%,#03141d85 100%);mix-blend-mode:multiply}
+      .river-title{top:11vh;right:7vw}.river-title small,.journey-badge b,.location-card small,.kicker{color:#f0c47f}.river-title h2{color:#fff4e7;text-shadow:none}.river-title p{color:#f0dfd0}
+      .journey-badge,.location-card,.navigator-hud,.marker-legend{background:#061923b8;border-color:#f0c47f70;box-shadow:0 18px 45px #0007}
+      .location-card strong{color:#fff1dd}.location-card p{color:#d2dedb}.location-card button{color:#f2c078}
+      .navigator-hud{border-color:#88c8c33d}.navigator-hud>span{color:#9be9df}.navigator-controls button{color:#f0c47f}
+      .marker-legend{color:#f2dfc9}.legend-item.gold i{background:#f0b76b;box-shadow:none}
+      .section:before{border-color:#dca86d1f;box-shadow:0 0 70px #0e87920b,inset 0 0 70px #e5a45c08}
+      .glass,.timeline,.archive-card,.atlas-console,.legacy-manifesto,.tribute-card,.memorial-card,.sanctuary-stage,.era-card,.era-atlas-card,.village-dossier,.dict-item{background:linear-gradient(135deg,#12303bc7,#07161ebd)!important;border-color:#b8d8d033;box-shadow:0 24px 80px #0008,inset 0 1px #fff3df16;backdrop-filter:blur(18px) saturate(1.1);-webkit-backdrop-filter:blur(18px) saturate(1.1)}
+      .section-head h2{color:#fff3e1;text-shadow:none}.section-head p{color:#cbd9d5}.gold-text{color:#f0bb75;background:none}
+      @media(max-width:680px){
+        .nav-inner{height:62px}.nav{position:fixed}.nav-copilot{padding:9px 11px;font-size:10px}.sound-toggle{width:42px;height:42px;padding:0;font-size:0;border-radius:13px}.sound-toggle:first-letter{font-size:14px}.brand-copy strong{font-size:15px}
+        .hero{min-height:calc(100svh - 62px);height:calc(100svh - 62px);margin-top:62px;background:radial-gradient(circle at 69% 29%,#ffd586 0 2.5%,transparent 3.2%),linear-gradient(180deg,#1b3540 0%,#bd7359 34%,#183b44 58%,#06151e 100%)}
+        .hero:before{background:linear-gradient(153deg,transparent 0 34%,#102a32 34.5% 46%,transparent 46.5%),linear-gradient(207deg,transparent 0 38%,#203d3e 38.5% 50%,transparent 50.5%),linear-gradient(172deg,transparent 0 48%,#091e2a 48.5% 63%,transparent 63.5%)}
+        .hero:after{inset:45% 0 0;opacity:.76}.hero-copy{left:18px;right:18px;top:24%;width:auto;text-align:center}.hero-copy:before{font-size:42px;letter-spacing:.25em;margin-left:.25em}.hero-copy:after{font-size:15px;margin:8px 0 17px}.hero-copy h1{font-size:23px;line-height:1.45;margin-bottom:12px}.hero-copy>p{font-size:12px;line-height:1.85;margin:0 auto 18px;max-width:330px}.hero-actions{justify-content:center}.hero-actions .primary,.hero-actions .secondary{padding:11px 14px;font-size:11px}.hero-note{justify-content:center;font-size:9px;margin-top:16px}.hero-note span:nth-of-type(2),.hero-note b{display:none}
+        #river-stage{min-height:100%;height:100%;pointer-events:none}.river-title{top:9vh;right:14px}.river-title h2{font-size:16px}.river-title p{display:none}.journey-badge{left:14px;top:9vh;padding:7px 8px}.marker-legend{display:none}.location-card{right:14px;bottom:18vh;width:170px;padding:9px}.navigator-hud{left:12px;right:12px;bottom:6vh;padding:7px 8px;font-size:7px}.scroll-cue{bottom:13vh}
+        .dedication-banner.top{top:70px;left:12px;right:12px;padding:8px 10px}.dedication-banner.top strong{font-size:9px}.dedication-banner.top span{font-size:8px}.section{min-height:0;padding:82px 12px}.section:before{inset:30px 0 12px}.hero+section{display:none}.copilot-launch{bottom:12px;right:12px}
+      }
      /* Spatial application mode: the WebGL river is the stage, HTML is only its HUD. */
      body{min-height:100svh;background:#01040a;overflow-x:hidden}
      .nav{position:fixed;top:0;left:0;right:0;background:linear-gradient(180deg,#02060dcc,#02060d44);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #ffd86a28;z-index:80}
