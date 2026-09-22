@@ -179,7 +179,11 @@
       .dedication-banner small{display:block;color:#e7bd62;font:8px "Space Grotesk",sans-serif;letter-spacing:.14em;text-transform:uppercase}.dedication-banner strong{display:block;margin-top:4px;font-size:11px;line-height:1.75}.dedication-banner span{display:block;margin-top:3px;color:#c4d2d1;font-size:10px;line-height:1.75}
       .dedication-banner.top{position:absolute;top:86px;left:7vw;right:7vw;z-index:9;direction:rtl}.dedication-banner.bottom{margin:18px auto 0;max-width:760px;direction:rtl}
       @media(max-width:680px){.dedication-banner.top{top:77px;left:12px;right:12px}.dedication-banner strong{font-size:10px}.dedication-banner span{font-size:9px}.dedication-banner.bottom{margin-top:15px;padding:11px 12px}}
-    </style>
+      .hero{background-image:linear-gradient(90deg,#06131d2e,#06131d36),url('/nubia-hero-reference.jpg');background-size:cover;background-position:center top;background-repeat:no-repeat}
+      .hero:before{background:linear-gradient(180deg,#06131d12 0 34%,#06131d35 65%,#06131dd1 100%);opacity:1}
+      .hero:after{background:linear-gradient(180deg,transparent 35%,#06131d16 52%,#06131dbf 100%);mix-blend-mode:multiply;opacity:.72}
+      @media(max-width:680px){.hero{background-image:linear-gradient(180deg,#06131d20,#06131d35 45%,#06131dbd 100%),url('/nubia-hero-reference.jpg');background-size:cover;background-position:center top}.hero:before{background:linear-gradient(180deg,#06131d12 0 36%,#06131d44 70%,#06131dda 100%)}.hero:after{background:linear-gradient(180deg,transparent 35%,#06131d1f 52%,#06131dde 100%)}}
+     </style>
 </head>
 <body>
   <canvas id="nile-canvas" aria-hidden="true"></canvas><div class="ambient" aria-hidden="true"></div><div class="stars" aria-hidden="true"></div>
