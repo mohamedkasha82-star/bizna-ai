@@ -1,23 +1,27 @@
-# Bizna AI
+# Nubia AI
 
-Premium Arabic-first decision intelligence for Egyptian micro-businesses.
+Cyber-Nubian sovereign cultural intelligence for the Nile Valley: an interactive WebGL journey, historical archive, language cards, living village matrix, and edge AI Copilot.
 
 ## Local setup
 
 ```bash
-npm install -D wrangler
-npx wrangler dev
+npm install
+npm run dev
 ```
 
-Set the Worker secrets before deploying:
+Deploy with `npm run deploy`. The static experience lives in `public/index.html`; the edge routes live in `src/worker.js`.
+
+## Edge AI
+
+Workers AI is attempted first with `@cf/meta/llama-3-8b-instruct`, followed by Groq and OpenRouter free-compatible endpoints. If no provider is available, the Copilot returns a safe deterministic response instead of failing. Configure these as Worker secrets:
 
 ```bash
-npx wrangler secret put SUPABASE_URL
-npx wrangler secret put SUPABASE_ANON_KEY
 npx wrangler secret put GROQ_API_KEY
 npx wrangler secret put OPENROUTER_API_KEY
 ```
 
-Workers AI is the first Copilot provider. Groq and OpenRouter are attempted next, and the UI always keeps a useful deterministic fallback when providers are unavailable. Add a KV binding named `RATE_LIMIT_KV` in the Cloudflare dashboard for globally shared rate limiting; without it, the Worker uses an isolate-local sliding window.
+The Copilot routes are `/api/ai/copilot` and `/api/ai/nubia`. Add a KV binding named `RATE_LIMIT_KV` for globally shared rate limiting; otherwise an isolate-local sliding window is used.
 
-The existing Supabase tables remain supported through the browser client: `business_profiles` and its related `experiments` records.
+## Cultural safety
+
+The prompt distinguishes documented history, community memory, and user-provided archive material. It is intentionally instructed not to invent translations, dates, lineages, images, or oral-history details.
