@@ -139,6 +139,25 @@ function parseJson(text) {
   try { return JSON.parse(text.replace(/^```(?:json)?/i, "").replace(/```$/i, "").trim()); } catch { return null; }
 }
 
+function fallbackNubiaAnswer(messages = [], context = "") {
+  const latest = [...messages].reverse().find((message) => message?.role === "user")?.content || "";
+  const query = `${latest} ${context}`.toLowerCase();
+  const entries = [
+    { keys: ["مروي", "meroe"], text: "مروي كانت عاصمة مهمة في المرحلة المتأخرة من مملكة كوش، وازدهرت تقريباً من القرن الثالث قبل الميلاد إلى القرن الرابع الميلادي. ترتبط بمراكز حضرية، وصناعة الحديد، ومقابر هرمية، وبالخط المرويتي الذي ما زالت قراءته الكاملة مجالاً للبحث. الأفضل أن نعرض تاريخها كإنجاز كوشي قائم بذاته، لا كملحق بتاريخ مصر فقط." },
+    { keys: ["كرمة", "kerma"], text: "كرمة من أقدم المراكز الحضرية والسياسية الكبرى في وادي النيل، وازدهرت تقريباً بين 2500 و1500 قبل الميلاد. الدفوفة الغربية والمقابر واللقى الأثرية تذكّرنا بأن الدولة والمجتمع في النوبة القديمة امتلكا بنية سياسية وثقافية خاصة بهما." },
+    { keys: ["نبتة", "napata", "الأسرة الخامسة والعشرون", "25th"], text: "نبتة كانت مركزاً سياسياً ودينياً مهماً في تاريخ كوش، ومنها وصل الحكم الكوشي إلى الأسرة الخامسة والعشرين في مصر خلال القرن الثامن قبل الميلاد. عند الحديث عنها، من المهم إبراز حركة القوة جنوباً وشمالاً معاً، لا اختزالها في فكرة السيطرة وحدها." },
+    { keys: ["عدندان", "أدندان", "adindan"], text: "أدندان اسم حاضر في خريطة الذاكرة النوبية، وتتعامل معه هذه المنصة كمنارة تكريم لا كبيانات مكتملة من دون أصحابها. أي تاريخ عائلي أو رواية عن المكان يجب أن يُراجع مع أهل القرية والأرشيفات التي يوافقون على مشاركتها." },
+    { keys: ["توماس", "thomas"], text: "توماس تظهر هنا كمنارة ثانية في الرحلة، والاسم يحمل قيمة عاطفية ومكانية لا ينبغي أن تُملأ بتفاصيل غير موثقة. يمكن أن نبدأ بسؤال: أي صورة أو شهادة أو اسم عائلة تريد أن تحفظه قبل أن نضيف سرداً تاريخياً؟" },
+    { keys: ["البقط", "baqt"], text: "البقط اسم المعاهدة التي ارتبطت بالعلاقات بين المقرة والقوى العربية في القرن السابع الميلادي، ويُؤرخ لها عادةً بعامي 651 و652. قصتها ليست حدوداً عسكرية فقط؛ هي أيضاً نافذة على التجارة والتفاوض والتعايش والتوتر عبر النهر." },
+    { keys: ["مقُرة", "makuria", "نوباتيا", "nobatia", "علوة", "alodia"], text: "الممالك النوبية المسيحية، ومنها نوباتيا ومقُرة وعلوة، شكّلت زمناً طويلاً من الفن والعمارة والكتابة والسياسة على امتداد وادي النيل. التفاصيل تختلف بين المملكة والموقع، لذلك سأفصل بين ما هو موثق أثرياً وما يحتاج إلى رواية مجتمعية أو مصدر متخصص." },
+    { keys: ["اللغة", "nobiin", "نوبيين", "كنزي", "لغة نوبية"], text: "اللغات النوبية لغات حية، وحفظها لا يقتصر على تسجيل كلمات منفردة. يحتاج الأمر إلى متحدثين، وسياق عائلي، ونطق، وحق المجتمع في تحديد ما يُنشر وما يبقى داخل الدائرة المحلية. بطاقة الأرشيف هنا بداية سؤال، وليست بديلاً عن أهل اللغة." },
+    { keys: ["التهجير", "إعادة التوطين", "السد", "resettlement"], text: "مشروعات السدود، خصوصاً في القرن العشرين، أعادت تشكيل جغرافيا قرى نوبية كثيرة ودفعت مجتمعات إلى إعادة التوطين. لا توجد رواية واحدة تختصر التجربة؛ الذاكرة تشمل الفقد، وإعادة بناء البيوت، واستمرار اللغة والروابط العائلية." },
+    { keys: ["النيل", "nile", "فلوكة", "felucca"], text: "النيل في الذاكرة النوبية ليس خلفية طبيعية فقط؛ هو طريق حركة، ومصدر رزق، وحدّ عائلي، ومخزن أسماء وحكايات. عند قراءة أي قرية، اسأل كيف تغيّر الوصول إلى الماء، وكيف تغيّرت الأسماء والبيوت، وما الذي بقي في الأغاني واللغة." },
+  ];
+  const hit = entries.find((entry) => entry.keys.some((key) => query.includes(key.toLowerCase())));
+  return { text: hit?.text || "أقدر أبدأ معك من مروي، كرمة، أدندان، اللغة النوبية، أو تاريخ إعادة التوطين. اكتب اسماً واحداً وسأفصل بين التاريخ الموثق، والذاكرة المجتمعية، وما يحتاج إلى بحث إضافي.", provider: "knowledge-fallback" };
+}
+
 async function diagnose(request, env) {
   const business = await request.json();
   const instruction = `Return JSON only with keys primary_bottleneck, diagnosis, next_best_action, experiment (hypothesis, action, metric, target, timebox), marketing_ideas (array), sales_script, unknowns (array). Business:\n${JSON.stringify(business)}`;
@@ -152,8 +171,9 @@ async function copilot(request, env) {
   if (!gate.ok) return response({ error: "rate_limited", message: "خد نفس وجرب تاني بعد شوية.", retryAfter: gate.retryAfter }, 429, { "retry-after": String(gate.retryAfter) });
   const body = await request.json();
   const result = await runCompletion(env, cleanMessages(body.messages, body.context), 700);
-  const text = result.text || "أنا جاهز أساعدك في قراءة مكان أو عصر أو كلمة. اكتب اسماً من الرحلة، وسنبدأ بسؤال مسؤول عنه.";
-  return response({ text, provider: result.provider }, 200, { "x-rate-limit-remaining": String(gate.remaining) });
+  const fallback = fallbackNubiaAnswer(body.messages, body.context);
+  const text = result.text || fallback.text;
+  return response({ text, provider: result.text ? result.provider : fallback.provider }, 200, { "x-rate-limit-remaining": String(gate.remaining) });
 }
 
 export default {
