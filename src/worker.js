@@ -1,12 +1,12 @@
 const JSON_HEADERS = { "content-type": "application/json; charset=utf-8" };
 const buckets = new Map();
 
-const ADVISOR_PROMPT = `You are Bizna Copilot, an expert Egyptian small-business advisor.
-Speak in clear Egyptian Arabic by default, using simple practical language and EGP when money is involved.
-Be specific, warm, and honest. Help micro-entrepreneurs turn uncertainty into one measurable next step.
-Ask at most one clarifying question when necessary. Never invent market data, promise profit, or give legal/tax advice as certainty.
-Prefer low-cost experiments, contribution margin, customer conversations, and evidence over generic motivation.
-When recommending an experiment, include: hypothesis, action, metric, target, and timebox.`;
+const ADVISOR_PROMPT = `You are Nubia AI, a careful cultural intelligence guide for Nubia, the Nile Valley, and its living communities.
+Answer in clear Arabic by default, with English names in parentheses when useful. Be warm, precise, and respectful.
+Explain historical eras, places, language preservation, and cultural context without flattening Nubian identity into a museum object.
+Never invent a translation, date, lineage, photograph, or oral-history detail. If a claim is uncertain, say so and suggest what kind of community or archival source should verify it.
+Do not present family-memory text as independently verified history. Prefer context, questions for further research, and responsible storytelling over confident filler.
+When asked about a village or person, distinguish documented history, community memory, and the user's own archive.`;
 
 function response(body, status = 200, headers = {}) {
   return new Response(JSON.stringify(body), {
@@ -90,7 +90,7 @@ async function runCompletion(env, messages, maxTokens = 700) {
           authorization: `Bearer ${env.OPENROUTER_API_KEY}`,
           "content-type": "application/json",
           "HTTP-Referer": env.OPENROUTER_SITE || "https://bizna-ai.mohamedkasha82.workers.dev",
-          "X-Title": "Bizna AI Copilot",
+          "X-Title": "Nubia AI Copilot",
         },
         body: JSON.stringify({ model: env.OPENROUTER_MODEL || "meta-llama/llama-3-8b-instruct:free", messages, temperature: 0.35, max_tokens: maxTokens }),
       });
@@ -152,7 +152,7 @@ async function copilot(request, env) {
   if (!gate.ok) return response({ error: "rate_limited", message: "خد نفس وجرب تاني بعد شوية.", retryAfter: gate.retryAfter }, 429, { "retry-after": String(gate.retryAfter) });
   const body = await request.json();
   const result = await runCompletion(env, cleanMessages(body.messages, body.context), 700);
-  const text = result.text || "أنا جاهز أساعدك. ابعتلي نوع مشروعك وأكبر حاجة معطلاك دلوقتي، ونحوّلها لأول تجربة بسيطة.";
+  const text = result.text || "أنا جاهز أساعدك في قراءة مكان أو عصر أو كلمة. اكتب اسماً من الرحلة، وسنبدأ بسؤال مسؤول عنه.";
   return response({ text, provider: result.provider }, 200, { "x-rate-limit-remaining": String(gate.remaining) });
 }
 
@@ -165,11 +165,10 @@ export default {
     if (request.method === "POST" && url.pathname === "/api/ai/diagnose") {
       try { return await diagnose(request, env); } catch (error) { return response({ error: "diagnosis_failed", details: error?.message || "Unknown error" }, 500); }
     }
-    if (request.method === "POST" && url.pathname === "/api/ai/copilot") {
+    if (request.method === "POST" && (url.pathname === "/api/ai/copilot" || url.pathname === "/api/ai/nubia")) {
       try { return await copilot(request, env); } catch (error) { return response({ error: "copilot_failed", details: error?.message || "Unknown error" }, 500); }
     }
     if (env.ASSETS) return env.ASSETS.fetch(request);
-    return textResponse("Bizna AI");
+    return textResponse("Nubia AI");
   },
 };
-
