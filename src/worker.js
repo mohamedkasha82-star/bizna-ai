@@ -1,4 +1,5 @@
 const JSON_HEADERS = { "content-type": "application/json; charset=utf-8" };
+const ASSET_REVISION = "20260922-reference-hero-2";
 const buckets = new Map();
 
 const ADVISOR_PROMPT = `You are Nubia AI, a careful cultural intelligence guide for Nubia, the Nile Valley, and its living communities.
@@ -23,8 +24,14 @@ function textResponse(body, status = 200) {
 }
 
 async function serveAssets(request, env, url) {
-  const asset = await env.ASSETS.fetch(request);
-  if (request.method !== "GET" || !["/", "/index.html"].includes(url.pathname)) return asset;
+  const isDocument = request.method === "GET" && ["/", "/index.html"].includes(url.pathname);
+  const assetUrl = new URL(request.url);
+  if (isDocument) {
+    assetUrl.pathname = "/index.html";
+    assetUrl.search = `?v=${ASSET_REVISION}`;
+  }
+  const asset = await env.ASSETS.fetch(isDocument ? new Request(assetUrl, request) : request);
+  if (!isDocument) return asset;
   const headers = new Headers(asset.headers);
   headers.set("cache-control", "no-store, no-cache, must-revalidate, max-age=0");
   headers.set("pragma", "no-cache");
