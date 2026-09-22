@@ -105,8 +105,6 @@ window.NUBIA_ARCHIVE = {
   ]
 };
 
-const andanResearch=NUBIA_VILLAGE_RESEARCH.Andan;
-if(andanResearch){NUBIA_VILLAGE_RESEARCH.Andan=andanResearch;delete NUBIA_VILLAGE_RESEARCH.Andan}
 const andanVillage=window.NUBIA_ARCHIVE.villages.find(item=>item.name==="Andan");
 if(andanVillage){andanVillage.name="Andan";andanVillage.ar="أندان"}
 const eraById=new Map(NUBIA_ERA_DOSSIERS.map(item=>[item.id,item]));
