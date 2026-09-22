@@ -22,6 +22,15 @@ function textResponse(body, status = 200) {
   });
 }
 
+async function serveAssets(request, env, url) {
+  const asset = await env.ASSETS.fetch(request);
+  if (request.method !== "GET" || !["/", "/index.html"].includes(url.pathname)) return asset;
+  const headers = new Headers(asset.headers);
+  headers.set("cache-control", "no-store, no-cache, must-revalidate, max-age=0");
+  headers.set("pragma", "no-cache");
+  return new Response(asset.body, { status: asset.status, statusText: asset.statusText, headers });
+}
+
 function clientKey(request) {
   return request.headers.get("CF-Connecting-IP") || request.headers.get("x-forwarded-for") || "anonymous";
 }
@@ -188,7 +197,7 @@ export default {
     if (request.method === "POST" && (url.pathname === "/api/ai/copilot" || url.pathname === "/api/ai/nubia")) {
       try { return await copilot(request, env); } catch (error) { return response({ error: "copilot_failed", details: error?.message || "Unknown error" }, 500); }
     }
-    if (env.ASSETS) return env.ASSETS.fetch(request);
+    if (env.ASSETS) return serveAssets(request, env, url);
     return textResponse("Nubia AI");
   },
 };
